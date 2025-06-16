@@ -16,13 +16,14 @@ function addBlogsHide() {
 	$('.post-action').addClass("not-active");
 }
 
-function getHtml() { // берём из getPosts.php массив с пастами и, беря по одному посту, засовывает их в страницу кода.
+function getHtml($number) { // берём из getPosts.php массив с пастами и, беря по одному посту, засовывает их в страницу кода.
+	
 	let $token = localStorage.getItem("token");
 	$.ajax({
 		url: "/getPosts.php",
 		method: "POST",
 		dataType: "json",
-		data: { "token": $token },
+		data: { "token": $token, number_page : $number, limit : 5, ten_post : true},
 		success: function ($response) {
 			// console.log($response);
 			// getPosts - генерирует html код для одного поста в благах или индексе.
@@ -31,25 +32,22 @@ function getHtml() { // берём из getPosts.php массив с паста�
 	});
 }
 
-function getFullPost($number_pagin = null) { // отображает все посты на странице.
-	if ($number_pagin) {
-		getHtml();
-	} else {
-		getHtml($number_pagin);
-	}
-	getHtmlPagination();
+function getFullPost($number_pagin = 0) { // отображает все посты на странице.
+	getHtml($number_pagin);
+	getHtmlPagination($number_pagin);
 	blogsShow();
 	$(this).addClass("colorlib-active");
 	$(".list-posts").html("");
 }
 
 function getHtmlTen() {
+	$(".list-10-posts").html("");
 	let $token = localStorage.getItem("token");
 	$.ajax({
-		url: "/getPostsTen.php",
+		url: "/getPosts.php",
 		method: "POST",
 		dataType: "json",
-		data: { "token": $token },
+		data: { "token": $token, number_page : 0, limit : 10, ten_post : true },
 		success: function ($response) {
 			// console.log($response);
 			// getPosts - генерирует html код для одного поста в благах или индексе.
@@ -66,11 +64,6 @@ function addPostButton() { // кнопка "Создать пост" откры�
 	});
 }
 
-
-
-
-
-
 function moreButton() { // по клику на кнопку "Подробнее..." она же .btn-custom, мы открываем страницу ПРОСМОТРА ПОСТА при помощи getPost
 	$("body").on("click", '.btn-custom', function () {
 		hideAll();
@@ -82,7 +75,7 @@ function moreButton() { // по клику на кнопку "Подробнее
 
 function getPost(id) { // отображает страницу ПРОСМОТРА поста 
 	let $token = localStorage.getItem("token");
-
+	$(".post-content").html("");
 	$.ajax({
 		url: "/getPost.php",
 		method: "POST",

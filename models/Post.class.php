@@ -51,11 +51,13 @@ class Post
     public function load($array): void
     {
 
-        if (array_key_exists("token", $array)) {
+        if (array_key_exists("token", $array)) { // проверка на токен авторизации
             $token = $array['token'];
             $id = $this->user->mysql->select("SELECT id FROM user where token='$token'")[0]['id']; // достаём id из бд
-            unset($array['token']);
-            $array["autor_id"] = $id;
+            if ($id) {
+                unset($array['token']);
+                $array["autor_id"] = $id;
+            }
         }
 
         Asists::loadData($this, $array);
@@ -118,20 +120,19 @@ class Post
         return Asists::format_date($this->date);
     }
 
-    public function getPosts($limit = false, $offset = 0): array // выдает массив с постами. Если есль лимит то он ограничен, если нет, все посты выдаёт.
-    {
-        // if ($_SERVER["SCRIPT_NAME"] == "/posts.php") {
-            // if ($offset === NULL) {
-            //     $offset = 0;
-            // } else {
-            //     $offset = ($offset - 1) * 5;
-            // }
-        // }
-
+    public function getPosts($limit = false, $offset = 0, $ten_post=false): array // выдает массив с постами. Если есль лимит то он ограничен, если нет, все посты выдаёт.
+    {  
+        if (!$ten_post) {
+            if ($offset !== 0) {
+                // var_dump("123");
+                $offset = ($offset - 1) * 5;
+            }
+        }
+        // var_dump($limit, $offset);
+        
         if (!$limit) {
             $limit = $this->user->mysql->select('SELECT count(id) FROM POST')[0]["count(id)"];
         }
-
         $result = [];
         $request = $this->user->mysql->select("SELECT * FROM POST ORDER BY date DESC Limit $limit OFFSET $offset");
         foreach ($request as $value) {
@@ -148,7 +149,7 @@ class Post
 
     public function get_post_ten(): array
     {
-        return $this->getPosts(10);
+        return $this->getPosts(10, ten_post:true);
     }
 
     public function delete_post($id = null): bool

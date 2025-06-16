@@ -11,19 +11,19 @@ class Pagination
         $this->response = $response;
     }
 
-    public function give_html($num_string = NULL) 
+    public function give_html($num_string = 0) 
     {
-        if ($num_string === NULL) {
+        if ($num_string === 0) {
             $num_string = 1;
         }
-
         $final = ceil($this->mysql->select("SELECT COUNT(*) FROM POST")[0]['COUNT(*)'] / 5);
         $result = "<div class='row'><div class='col'><div class='block-27'><ul>";
         $i = 1;
 
         if ($num_string != 1) {
             // $result.= "<li><a href='{$this->response->getLink("posts.php", ["num" => $num_string-1])}'>&lt;</a></li> ";
-            $result.= "<li  class='pagination-li' data-p='$i-1'><a href='#'>&lt;</a></li> ";
+            $num = $i-1;
+            $result.= "<li  class='pagination-li' data-p='$num'><a href='#'>&lt;</a></li> ";
         } 
 
         while ($i <= $final) {
@@ -38,7 +38,8 @@ class Pagination
 
         if ($num_string != $final) {
             // $result .= "<li><a href='{$this->response->getLink("posts.php", ["num" => $num_string+1])}'>&gt;</a></li>";
-            $result .= "<li class='pagination-li' data-p='$i+1'><a href='#'>&gt;</a></li>";
+            $num = $i+1;
+            $result .= "<li class='pagination-li' data-p='$num'><a href='#'>&gt;</a></li>";
         }
         
         $result .= "</ul></div></div></div>";

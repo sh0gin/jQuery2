@@ -15,17 +15,15 @@ function giveInputComment() {
             dataType: "json",
             data: { message: $message, post_id: $post_id, token: $token },
             success: function ($response) {
-                if ($response.status) {
-                    console.log("123");
+                if ($response.status) { // исполняеться если валидация нашла ошибку
                     $("textarea[name='message']").addClass("is-invalid");
                     $(".name-message-comment").text($response.valid_message);
-                    $("body > .post").html(""); // нужно сделать чтобы комментарий добавлялся сразу же
+                    // $("body > .post").html(""); // нужно сделать чтобы комментарий добавлялся сразу же
                 } else {
                     $("textarea[name='message']").removeClass("is-invalid");
+                    getPost($post_id);
                 }
             }
         })
     })
-
-
 }
