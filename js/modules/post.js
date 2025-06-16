@@ -1,4 +1,5 @@
 import { getFullPost, addBlogsHide, hideAll } from "./blogs.js";
+import { clearPost } from "./asists.js";
 
 export { giveInputPost, edit }
 
@@ -30,8 +31,9 @@ function giveInputPost($id = false) { // нужен чтобы взять id п�
                 if (!$response.status) {
                     addBlogsHide();
                     getFullPost();
-                    $(".post-action-form").find("input").attr("value", "");
-                    $("#title").attr("value", "");
+                    clearPost()
+                    // $(".post-action-form").find("input").attr("value", "");
+                    // $("#title").attr("value", "");
                 }
 
                 $("input").each(function () { // убираем is-invalid(красное окно + показ ошибок) в input в форме

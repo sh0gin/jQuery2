@@ -1,4 +1,5 @@
 import { getFullPost } from "./blogs.js";
+import { clearForm } from "./asists.js";
 export { registerShow, giveInputRegister }
 
 
@@ -32,6 +33,7 @@ function giveInputRegister() {
                     getFullPost();
                     $("a[data-section=blogs]").addClass("colorlib-active");
                     $(".regst").attr("value", "");
+                    clearForm();
                 } else {
                     $("input").each(function () { // убираем is-invalid(красное окно + показ ошибок) в input в форме
                         $(this).removeClass("is-invalid");

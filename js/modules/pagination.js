@@ -14,8 +14,8 @@ function getHtmlPagination($num_page=0) {
       }})
 }
 
-function giveNumPagination() {
-    $('body').on("click",".pagination-li" , function(elem) {
+function giveNumPagination() { // вызывает страницу с постами смотря на номер страницы
+    $('body').on("click",".pagination-li" , function() {
 
         let $number = Number($(this).attr("data-p"));
         getFullPost($number);

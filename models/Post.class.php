@@ -115,24 +115,27 @@ class Post
         }
         return false;
     }
+
     public function get_date(): bool | string
     {
         return Asists::format_date($this->date);
     }
 
     public function getPosts($limit = false, $offset = 0, $ten_post=false): array // выдает массив с постами. Если есль лимит то он ограничен, если нет, все посты выдаёт.
-    {  
-        if (!$ten_post) {
+    {
+        
+        if ($ten_post === "false") {
             if ($offset !== 0) {
-                // var_dump("123");
                 $offset = ($offset - 1) * 5;
             }
         }
-        // var_dump($limit, $offset);
         
-        if (!$limit) {
-            $limit = $this->user->mysql->select('SELECT count(id) FROM POST')[0]["count(id)"];
-        }
+        // if ((bool) $ten_post) { // если не 10 постов
+        //     $limit = $this->user->mysql->select('SELECT count(id) FROM POST')[0]["count(id)"];
+        // }
+
+        // var_dump($limit, $offset, $ten_post);
+
         $result = [];
         $request = $this->user->mysql->select("SELECT * FROM POST ORDER BY date DESC Limit $limit OFFSET $offset");
         foreach ($request as $value) {

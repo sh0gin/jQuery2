@@ -22,7 +22,7 @@ class Pagination
 
         if ($num_string != 1) {
             // $result.= "<li><a href='{$this->response->getLink("posts.php", ["num" => $num_string-1])}'>&lt;</a></li> ";
-            $num = $i-1;
+            $num = $num_string-1;
             $result.= "<li  class='pagination-li' data-p='$num'><a href='#'>&lt;</a></li> ";
         } 
 
@@ -38,7 +38,7 @@ class Pagination
 
         if ($num_string != $final) {
             // $result .= "<li><a href='{$this->response->getLink("posts.php", ["num" => $num_string+1])}'>&gt;</a></li>";
-            $num = $i+1;
+            $num = $num_string+1;
             $result .= "<li class='pagination-li' data-p='$num'><a href='#'>&gt;</a></li>";
         }
         

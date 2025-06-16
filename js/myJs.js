@@ -14,12 +14,12 @@ $(() => {
   getUserStatus(); // действивя с пользователей
   $("body").on("click", ".link", function (e) {
     e.preventDefault();
-
+    
     $("body").find("input").attr('value', '');
     hideCorolLibAll(); // убирает corolLib у всех пунктов
-
+    
     hideAll(); // убирает все страницы
-
+    
     switch ($(this).attr("data-section")) {
       case "login":
         loginShow();
@@ -60,9 +60,9 @@ $(() => {
   //   $('.post-action').removeClass("not-active"); // страница добавление поста
   // })
 
-  giveNumPagination()
+  giveNumPagination(); // срабатывает когда жмём на кнопки пагинации
   giveInputComment(); // селектор на нажатии кнопки создания комментария
-  giveInputPost();
+  giveInputPost(); // срабатывает когда жмём на кнопку создания поста
   getUserStatus(); // проверяет статус пользователя
   giveInputRegister(); // берем данные с формы регистрации по нажатию кнопки Регистрация
   giveInputLogin(); // берем данные с форм входа по нажатию кнопки Вход

@@ -3,6 +3,7 @@ import { getPostOne } from "./getPostOne.js";
 import { getCommentOne } from "./getCommentOne.js";
 import { hideAll } from "./asists.js";
 import { getHtmlPagination } from "./pagination.js";
+import { clearPost } from "./asists.js";
 
 export { blogsShow, getHtml, getPost, getFullPost, addPostButton, moreButton, addBlogsHide, deletePost, hideAll, getComments, getHtmlTen };
 
@@ -21,9 +22,9 @@ function getHtml($number) { // берём из getPosts.php массив с па
 	let $token = localStorage.getItem("token");
 	$.ajax({
 		url: "/getPosts.php",
-		method: "POST",
+		method: "POST",	
 		dataType: "json",
-		data: { "token": $token, number_page : $number, limit : 5, ten_post : true},
+		data: { "token": $token, number_page : $number, limit : 5, ten_post : false},
 		success: function ($response) {
 			// console.log($response);
 			// getPosts - генерирует html код для одного поста в благах или индексе.
