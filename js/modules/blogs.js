@@ -1,0 +1,147 @@
+import { getPosts } from "./getPosts.js";
+import { getPostOne } from "./getPostOne.js";
+import { getCommentOne } from "./getCommentOne.js";
+import { hideAll } from "./asists.js";
+import { getHtmlPagination } from "./pagination.js";
+
+export { blogsShow, getHtml, getPost, getFullPost, addPostButton, moreButton, addBlogsHide, deletePost, hideAll, getComments, getHtmlTen };
+
+
+function blogsShow() { // отображает страницу блоги
+	$(".blogs").removeClass("not-active");
+	$("a[data-section=blogs]").addClass("colorlib-active");
+}
+
+function addBlogsHide() {
+	$('.post-action').addClass("not-active");
+}
+
+function getHtml() { // берём из getPosts.php массив с пастами и, беря по одному посту, засовывает их в страницу кода.
+	let $token = localStorage.getItem("token");
+	$.ajax({
+		url: "/getPosts.php",
+		method: "POST",
+		dataType: "json",
+		data: { "token": $token },
+		success: function ($response) {
+			// console.log($response);
+			// getPosts - генерирует html код для одного поста в благах или индексе.
+			$response.forEach($value => $(".list-posts").append(getPosts($value)));
+		},
+	});
+}
+
+function getFullPost($number_pagin = null) { // отображает все посты на странице.
+	if ($number_pagin) {
+		getHtml();
+	} else {
+		getHtml($number_pagin);
+	}
+	getHtmlPagination();
+	blogsShow();
+	$(this).addClass("colorlib-active");
+	$(".list-posts").html("");
+}
+
+function getHtmlTen() {
+	let $token = localStorage.getItem("token");
+	$.ajax({
+		url: "/getPostsTen.php",
+		method: "POST",
+		dataType: "json",
+		data: { "token": $token },
+		success: function ($response) {
+			// console.log($response);
+			// getPosts - генерирует html код для одного поста в благах или индексе.
+			$response.forEach($value => $(".list-10-posts").append(getPosts($value)));
+		},
+	});
+}
+
+function addPostButton() { // кнопка "Создать пост" открывает страницу для создания поста
+	$("body").on("click", "a[data-section=post-actions]", function (elem) { // кнопка Создать Пост
+		elem.preventDefault();
+		hideAll();
+		$('.post-action').removeClass("not-active"); // страница добавление поста
+	});
+}
+
+
+
+
+
+
+function moreButton() { // по клику на кнопку "Подробнее..." она же .btn-custom, мы открываем страницу ПРОСМОТРА ПОСТА при помощи getPost
+	$("body").on("click", '.btn-custom', function () {
+		hideAll();
+		let $id_post = $(this).attr("data-id");
+		getPost($id_post);
+	})
+}
+
+
+function getPost(id) { // отображает страницу ПРОСМОТРА поста 
+	let $token = localStorage.getItem("token");
+
+	$.ajax({
+		url: "/getPost.php",
+		method: "POST",
+		dataType: "json",
+		data: { id: id, token: $token },
+		success: function ($response) {
+			$(".post").removeClass("not-active");
+			$(".post-content").html(getPostOne($response));
+			getComments($response[0].id);
+		},
+	});
+	$(`ul[data-com=${$id_post}]`).html("");
+
+}
+
+
+function getComments($id_post) {
+	let $token = localStorage.getItem("token");
+	// $(`ul[data-com=${$id_post}]`).replaceWith("");
+
+	$.ajax({
+		url: "/getComments.php",
+		method: "POST",
+		dataType: "json",
+		data: { id_post: $id_post, token: $token },
+		success: function ($response) {
+			$response[0].forEach($value => $(`ul[data-com=${$id_post}]`).append(getCommentOne($value, $response[1], $response[2])));
+		},
+	});
+}
+
+
+
+function deletePost() { // удаляет пост
+	$("body").on("click", '.text-danger', function (elem) {
+		let $id_post = $(this).attr("data-id");
+		$.ajax({
+			url: "/delete_post.php",
+			method: "POST",
+			dataType: "json",
+			data: { id_post: $id_post },
+			success: function ($response) {
+				if ($response.status) {
+					getFullPost()
+				}
+			},
+		});
+
+	})
+}
+
+// $('body').on( 'change', '.list-posts', function() {
+// 	DoSomething();
+// });
+
+// let params = new URLSearchParams(document.location.search);
+// let value = params.get('id'); // 'key' – это имя целевого параметра\
+
+// if (!value) {
+// 	return false;
+// }
+

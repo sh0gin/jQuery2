@@ -1,0 +1,88 @@
+import { loginShow, giveInputLogin, getUserStatus, logout } from "./modules/login.js";
+import { blogsShow, getHtml, getPost, getFullPost, addPostButton, moreButton, deletePost } from "./modules/blogs.js";
+import { registerShow, giveInputRegister } from "./modules/register.js";
+import { hideAll, hideCorolLibAll } from "./modules/asists.js";
+import { indexShow, getFullPostTen } from "./modules/index.js";
+import { aboutShow } from "./modules/about.js";
+import { getHtmlPagination, giveNumPagination } from "./modules/pagination.js";
+import { usersShow } from "./modules/users.js";
+import { giveInputPost, edit } from "./modules/post.js";
+import { giveInputComment } from "./modules/comment.js";
+
+$(() => {
+  getFullPostTen(); // показываем Главную и посты на ней генерим
+  getUserStatus(); // действивя с пользователей
+  $("body").on("click", ".link", function (e) {
+    e.preventDefault();
+
+    $("body").find("input").attr('value', '');
+    hideCorolLibAll(); // убирает corolLib у всех пунктов
+
+    hideAll(); // убирает все страницы
+
+    switch ($(this).attr("data-section")) {
+      case "login":
+        loginShow();
+        break;
+      case "register":
+        registerShow();
+        break;
+      case "blogs":
+        getFullPost(); //  посты делает на страице
+        addPostButton(); // кнопка Создать пост
+        moreButton(); // кнопка Подробнее...
+        deletePost(); // удалить пост
+        edit();
+        break;
+      case "index":
+        getFullPostTen();
+        break;
+      case "about":
+        aboutShow();
+        break;
+      case "users":
+        usersShow();
+        break;
+      case "exting":
+        logout();
+        getUserStatus();
+        indexShow();
+        break;
+    }
+  });
+
+
+  // $("body").on("click", '.text-warning', function (elem) {
+  //   elem.preventDefault();
+  //   let $id_post = $(this).attr("data-id");
+  //   console.log($id_post);
+  //   hideAll();
+  //   $('.post-action').removeClass("not-active"); // страница добавление поста
+  // })
+
+  giveNumPagination()
+  giveInputComment(); // селектор на нажатии кнопки создания комментария
+  giveInputPost();
+  getUserStatus(); // проверяет статус пользователя
+  giveInputRegister(); // берем данные с формы регистрации по нажатию кнопки Регистрация
+  giveInputLogin(); // берем данные с форм входа по нажатию кнопки Вход
+
+});
+// 06.06.2025
+// $('.options-sort').each(() =>
+//   console.log(this)
+// )
+// $('.register-btn').on('click', function () {
+//   e.preventDefault();
+//   console.log("123");
+// })
+// 05.06.2025
+// $("section").each(function (a) {
+//     console.log(a);
+//     $(a).addClass('not-active');
+// })
+// let a = document.querySelectorAll("section");
+// a.forEach(function (elem) {
+//     console.log(elem);
+//     elem.classList.add("not-active")
+// })
