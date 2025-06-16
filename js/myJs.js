@@ -7,19 +7,20 @@ import { aboutShow } from "./modules/about.js";
 import { getHtmlPagination, giveNumPagination } from "./modules/pagination.js";
 import { usersShow } from "./modules/users.js";
 import { giveInputPost, edit } from "./modules/post.js";
-import { giveInputComment } from "./modules/comment.js";
+import { giveInputComment, answerShow } from "./modules/comment.js";
 
 $(() => {
   getFullPostTen(); // показываем Главную и посты на ней генерим
+
   getUserStatus(); // действивя с пользователей
   $("body").on("click", ".link", function (e) {
     e.preventDefault();
-    
+
     $("body").find("input").attr('value', '');
     hideCorolLibAll(); // убирает corolLib у всех пунктов
-    
+
     hideAll(); // убирает все страницы
-    
+
     switch ($(this).attr("data-section")) {
       case "login":
         loginShow();
@@ -30,9 +31,7 @@ $(() => {
       case "blogs":
         getFullPost(); //  посты делает на страице
         addPostButton(); // кнопка Создать пост
-        moreButton(); // кнопка Подробнее...
-        deletePost(); // удалить пост
-        edit();
+
         break;
       case "index":
         getFullPostTen();
@@ -59,7 +58,10 @@ $(() => {
   //   hideAll();
   //   $('.post-action').removeClass("not-active"); // страница добавление поста
   // })
-
+  moreButton(); // кнопка Подробнее...
+  deletePost(); // удалить пост
+  edit();
+  answerShow(); // кнопка ответить на комментарий
   giveNumPagination(); // срабатывает когда жмём на кнопки пагинации
   giveInputComment(); // селектор на нажатии кнопки создания комментария
   giveInputPost(); // срабатывает когда жмём на кнопку создания поста

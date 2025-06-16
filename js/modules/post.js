@@ -31,7 +31,7 @@ function giveInputPost($id = false) { // нужен чтобы взять id п�
                 if (!$response.status) {
                     addBlogsHide();
                     getFullPost();
-                    clearPost()
+                    clearPost(); // очищает форму
                     // $(".post-action-form").find("input").attr("value", "");
                     // $("#title").attr("value", "");
                 }
@@ -56,11 +56,10 @@ function giveInputPost($id = false) { // нужен чтобы взять id п�
     })
 }
 
-
 function edit() {
     // console.log("edit");
     $("body").on("click", '.text-warning', function (elem) {
-        elem.preventDefault();
+        elem.preventDefault(); 
         let $id_post = $(this).attr("data-id");
         hideAll();
         $('.post-action').removeClass("not-active"); // страница добавление поста

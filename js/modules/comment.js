@@ -1,4 +1,4 @@
-export { giveInputComment }
+export { giveInputComment, answerShow }
 import { getPost } from "./blogs.js"
 
 function giveInputComment() {
@@ -25,5 +25,21 @@ function giveInputComment() {
                 }
             }
         })
+    })
+}
+
+function answerShow() {
+    $("body").on("click", ".reply", function (e) {
+        e.preventDefault();
+        $(".post-content").html("");
+
+        console.log("pagnition");
+        $("body").find(".answer").removeClass("not-active");
+    })
+}
+
+function answerButton() {
+    $("body").on("click", ".answer-button", function (e) {
+        
     })
 }

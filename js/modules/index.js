@@ -8,7 +8,7 @@ function indexShow() { // Отображает главную страницу
 
 function getFullPostTen() { // отображает все посты на странице.
     getHtmlTen();
-    indexShow()
+    indexShow();
     $(this).addClass("colorlib-active");
     // $(".list-posts").html("");
 }

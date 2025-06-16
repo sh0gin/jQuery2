@@ -37,6 +37,7 @@ function getFullPost($number_pagin = 0) { // отображает все пос�
 	getHtml($number_pagin);
 	getHtmlPagination($number_pagin);
 	blogsShow();
+	
 	$(this).addClass("colorlib-active");
 	$(".list-posts").html("");
 }
