@@ -10,7 +10,7 @@ function getCommentOne($oneCommentObject, $idActive, $role) {
 		} else {
 			$role = true;
 		}
-		
+		console.log($oneCommentObject);
 		const el = `<li ` + ($oneCommentObject.comment_id ? `id='special-li'` : ``) + `class="comment">
 											
 											<div class="comment-body">
@@ -28,11 +28,11 @@ function getCommentOne($oneCommentObject, $idActive, $role) {
 												<p>
 													${$oneCommentObject.message}
 												</p>` +
-												(!$oneCommentObject.comment_id ? `<p><a href="#" class="reply"> Ответить</a></p>` : ``) +
+												(!$oneCommentObject.comment_id ? `<p><a href="#" data-post='${$oneCommentObject.id}' data-com='${$oneCommentObject.post_id}' class="reply"> Ответить</a></p>` : ``) +
 													($oneCommentObject.user.id == $idActive || $role ?
-													`<a href="" class="text-danger" style="font-size: 1.8em;"
+													`<a href="#" ' class="text-danger" style="font-size: 1.8em;"
 														title="Удалить">🗑</a>` : "") +
-												`<!-- <p><a href="#" class="reply"> Ответить</a></p> -->
+												`<!-- <p><a href="#" class="reply" > Ответить</a></p> -->
 											</div>
 	
 										</li>`;
