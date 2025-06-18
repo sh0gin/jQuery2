@@ -7,6 +7,8 @@ function indexShow() { // Отображает главную страницу
 }
 
 function getFullPostTen() { // отображает все посты на странице.
+    let $url = `index.html`;
+    history.pushState({}, "", $url);
     getHtmlTen();
     indexShow();
     $(this).addClass("colorlib-active");

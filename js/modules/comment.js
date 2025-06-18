@@ -1,6 +1,7 @@
-export { giveInputComment, answerShow }
+export { giveInputComment, answerShow, answerButton }
 import { getPost } from "./blogs.js"
 import { getAnswer } from "./getAnswer.js"
+import { get } from "./asists.js"
 
 function giveInputComment() {
 
@@ -16,6 +17,7 @@ function giveInputComment() {
             dataType: "json",
             data: { message: $message, post_id: $post_id, token: $token },
             success: function ($response) {
+                console.log($response);
                 if ($response.status) { // исполняеться если валидация нашла ошибку
                     $("textarea[name='message']").addClass("is-invalid");
                     $(".name-message-comment").text($response.valid_message);
@@ -30,40 +32,47 @@ function giveInputComment() {
 }
 
 function answerShow() {
-    $("body").on("click", ".reply", function (e) {
-        e.preventDefault();
-        $(".post-content").html("");
-        // console.log("pagnitions");
-        // console.log($(this).attr("data-com"));
-        // console.log($(this).attr("data-post"));
-        $("div > .answer-section").append(`<h2 class="h3">Ответ пользователю:</h3>
-                <div class="row block-9">
-                    <div class="col-lg-6 d-flex">
-                        <form enctype="multipart/form-data" action="" method="post" class="bg-light p-5 contact-form">
+    $("body").on("click", ".reply", function (elem) {
+        console.log("сработала кнопка ответить");
+        let $id_com = $(this).attr("data-com");
+        
+        let $id = get("id");
+        let $url = `https://localhost?comment: ${$id_com}`;
+        history.pushState({id: $id, comment: $id_com}, "");
 
-                            <div class="form-group">
-                                <textarea name="message" id="content" cols="30" rows="10" class="form-control"
-                                    placeholder="Answer" name="content"></textarea>
-                                <div class="invalid-feedback">
-                                </div>
-                            </div>
-    
-                            <div class="form-group">
-                                <input type="submit" data-post='123123213123' data-com='123123213123' value="Ответить" class="btn btn-primary py-3 px-5 answer-button">
-                            </div>
-                        </form>
-    
-                    </div> comment.js:40:17​`);
-        console.log(getAnswer("123123213123"));
-        if ($(".answer-section").length) {
-            console.log("we did search it!");
-        }
+        elem.preventDefault();
+
+        $(".post-content").html("");
+        $(".answer-section").removeClass('not-active');
 
     })
 }
 
 function answerButton() {
-    $("body").on("click", ".answer-button", function (e) {
+    $(".answer-form").submit(function (elem) {
+        elem.preventDefault();
+        console.log($(".answer-form").val());
+        // let $formData = new FormData(this);
 
+        let $token = localStorage.getItem("token");
+        let $id_comment = get("id");
+        let $id_post = get("comment");
+
+        // $formData.append('token', $token);
+        // $formData.append('id_comment', $id_comment);
+        // $formData.append('id_comment', $id_post);
+
+        // console.log($formData);
+        // $.ajax({
+        //     url: "/work_answer.php",
+        //     method: "POST",
+        //     dataType: "json",
+        //     data: $formData,
+        //     success: function ($response) {
+        //         console.log($response);
+        //     },
+        // });
+        // console.log($(".answer-form").val());
+        // console.log("answerButton");
     })
 }

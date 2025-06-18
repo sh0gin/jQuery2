@@ -16,6 +16,7 @@ class Pagination
         if ($num_string === 0) {
             $num_string = 1;
         }
+
         $final = ceil($this->mysql->select("SELECT COUNT(*) FROM POST")[0]['COUNT(*)'] / 5);
         $result = "<div class='row'><div class='col'><div class='block-27'><ul>";
         $i = 1;

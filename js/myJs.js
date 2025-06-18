@@ -1,24 +1,27 @@
 import { loginShow, giveInputLogin, getUserStatus, logout } from "./modules/login.js";
 import { blogsShow, getHtml, getPost, getFullPost, addPostButton, moreButton, deletePost } from "./modules/blogs.js";
 import { registerShow, giveInputRegister } from "./modules/register.js";
-import { hideAll, hideCorolLibAll } from "./modules/asists.js";
+import { hideAll, hideCorolLibAll, clearPost } from "./modules/asists.js";
 import { indexShow, getFullPostTen } from "./modules/index.js";
 import { aboutShow } from "./modules/about.js";
 import { getHtmlPagination, giveNumPagination } from "./modules/pagination.js";
 import { usersShow } from "./modules/users.js";
 import { giveInputPost, edit } from "./modules/post.js";
-import { giveInputComment, answerShow } from "./modules/comment.js";
+import { giveInputComment, answerShow, answerButton } from "./modules/comment.js";
 
 $(() => {
+  getPost();
   getFullPostTen(); // показываем Главную и посты на ней генерим
-
   getUserStatus(); // действивя с пользователей
+  
+  
   $("body").on("click", ".link", function (e) {
+    clearPost();
     e.preventDefault();
-
+    
     $("body").find("input").attr('value', '');
     hideCorolLibAll(); // убирает corolLib у всех пунктов
-
+    
     hideAll(); // убирает все страницы
 
     switch ($(this).attr("data-section")) {
@@ -31,7 +34,6 @@ $(() => {
       case "blogs":
         getFullPost(); //  посты делает на страице
         addPostButton(); // кнопка Создать пост
-
         break;
       case "index":
         getFullPostTen();
@@ -50,14 +52,7 @@ $(() => {
     }
   });
 
-
-  // $("body").on("click", '.text-warning', function (elem) {
-  //   elem.preventDefault();
-  //   let $id_post = $(this).attr("data-id");
-  //   console.log($id_post);
-  //   hideAll();
-  //   $('.post-action').removeClass("not-active"); // страница добавление поста
-  // })
+  answerButton();
   moreButton(); // кнопка Подробнее...
   deletePost(); // удалить пост
   edit();

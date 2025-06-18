@@ -1,4 +1,4 @@
-export { hideAll, hideCorolLibAll, clearForm, clearPost }
+export { hideAll, hideCorolLibAll, clearForm, clearPost, get }
 
 function hideAll() { // Скрыват все страницы
     $("section").each(function () {
@@ -19,4 +19,11 @@ function clearForm() {
 function clearPost() {
     $("input").val("");
     $("textarea").val("");
+}
+
+function get(arg) {
+    let $url_string = (window.location.href);
+    var $url = new URL($url_string);
+    var $id = $url.searchParams.get(arg);
+    return $id;
 }

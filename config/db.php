@@ -3,6 +3,6 @@
 $db = [
     "hostname" => 'localhost',
     "username" => 'root',
-    "password" => "",
+    "password" => '',
     "database" => "database_practic2",
 ];

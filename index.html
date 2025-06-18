@@ -145,12 +145,34 @@
                 </div>
             </section>
 
-            <section class="ftco-no-pt ftco-no-pb" data-com='comment'>
-                <div class="answer-section">
+             <!-- post-action -->
+             <section class="contact-section px-md-2 pt-5 not-active answer-section">
+                <div class="container">
+                    <div class="row d-flex contact-info">
+                        <div class="col-md-12 mb-1">
+                            <h2 class="h3">Ответ на комментарий</h2>
+                        </div>
+                    </div>
+                    <div class="row block-9">
+                        <div class="col-lg-6 d-flex">
+                            <form action="" class="bg-light p-5 contact-form answer-form" method="POST"
+                                enctype="multipart/form-data">
 
+
+                                <div class="form-group">
+                                    <textarea name="message" id="content-message" cols="30" rows="10" class="form-control"></textarea>
+                                    <div class="invalid-feedback content-message"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary py-3 px-5 creat-post-btn answer-button">Опубликовать</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </section>
-
             <!-- account -->
             <section class="ftco-no-pt ftco-no-pb not-active account">
                 <div class="account-info">
@@ -226,53 +248,12 @@
                                                 <th scope="col">Login</th>
 
                                                 <th scope="col">E-mail</th>
+                                                <th scope="col">DataEnd</th>
                                                 <th scope="col">Temp block</th>
                                                 <th scope="col">Permanent block</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>dfg</td>
-                                                <td>@mdo</td>
-                                                <td>
-                                                    <a href="temp-block.html" class="btn btn-outline-warning px-4">⏳
-                                                        Block</a>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-outline-danger px-4">📌 Block</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>dfg</td>
-                                                <td>@mdo</td>
-                                                <td>
-                                                    <a href="temp-block.html" class="btn btn-outline-warning px-4">⏳
-                                                        Block</a>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-outline-danger px-4">📌 Block</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>dfg</td>
-                                                <td>@mdo</td>
-                                                <td>
-                                                    <a href="temp-block.html" class="btn btn-outline-warning px-4">⏳
-                                                        Block</a>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-outline-danger px-4">📌 Block</a>
-                                                </td>
-                                            </tr>
+                                        <tbody class="t-body">
 
                                         </tbody>
                                     </table>

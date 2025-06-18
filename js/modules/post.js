@@ -5,8 +5,12 @@ export { giveInputPost, edit }
 
 function giveInputPost($id = false) { // нужен чтобы взять id пользователя по токену и передать в функцию giveInputPostPlus, чтобы создать новый пост
     $(".post-action-form").submit(function (e) {
-        let $id_post = localStorage.getItem('id');
-        localStorage.removeItem('id');
+        // let $id_post = localStorage.getItem('id');
+        // localStorage.removeItem('id');
+        let $url_string = (window.location.href);
+        var $url = new URL($url_string);
+        var $id_post = $url.searchParams.get("id");
+
         e.preventDefault();
 
         let $token = localStorage.getItem("token");
@@ -14,11 +18,11 @@ function giveInputPost($id = false) { // нужен чтобы взять id п�
         $formData.append("token", $token);
 
         if ($id) {
-            console.log("input post");
             $formData.append("id_post", $id_post);
         }
-        $formData.append("id_post", $id_post);
 
+        $formData.append("id_post", $id_post);
+        console.log($formData);
         $.ajax({
             url: '/work_post-create.php',
             method: 'POST',
@@ -57,13 +61,28 @@ function giveInputPost($id = false) { // нужен чтобы взять id п�
 }
 
 function edit() {
-    // console.log("edit");
     $("body").on("click", '.text-warning', function (elem) {
-        elem.preventDefault(); 
+        elem.preventDefault();
         let $id_post = $(this).attr("data-id");
         hideAll();
         $('.post-action').removeClass("not-active"); // страница добавление поста
-        localStorage.setItem("id", $id_post);
+        let $url = `index.html?id=${$id_post}`;
+        history.pushState({ id: $id_post }, "", $url);
+        let $token = localStorage.getItem("token");
+
+        $.ajax({
+            url: "/getPost.php",
+            method: "POST",
+            dataType: "json",
+            data: { id: $id_post, token: $token },
+            success: function ($response) {
+                console.log($response[0]);
+                $('input[id=title]').val($response[0].title);
+                $('input[id=preview]').val($response[0].preview);
+                $('textarea[id=content]').val($response[0].content);
+            }
+        })
+        // localStorage.setItem("id", $id_post);
         // по идее тут пишу чем заполнять и всё работает
 
     })

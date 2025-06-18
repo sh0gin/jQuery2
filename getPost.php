@@ -9,7 +9,7 @@ $post->user->identity($post->autor_id);
 if ($_POST['token']) {
     $token = $_POST['token'];
     $mas = $mysql->select("SELECT id, role FROM user where token='$token'")[0];   
-    $id = $mas["id"];   
+    $id = $mas["id"];
     $role = $mas["role"];   
     
     echo json_encode([$post, $id, $role]);
