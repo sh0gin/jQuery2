@@ -2,7 +2,6 @@ export { getUser };
 
 function getUser($onePostObject, number) { // HTML код для КАЖДОГО отображение поста на странице БЛОГИ и ГЛАВНАЯ
 
-    console.log($onePostObject);
     const el = `<tr>
     <th scope="row">${number}</th>
     <td>${$onePostObject.name}</td>
@@ -11,7 +10,7 @@ function getUser($onePostObject, number) { // HTML код для КАЖДОГО 
     <td>${$onePostObject.email}</td>
     <td>` + ($onePostObject.__user_ban ? `${$onePostObject.__user_ban}` : "") + `</td>
     <td>
-    <a href="temp-block.html" class="btn btn-outline-warning px-4">⏳ Block</a>
+    <a href="#" data-user-id='${$onePostObject.id}' class="btn btn-outline-warning px-4">⏳ Block</a>
     </td>
     <td>
     <a href="#" data-user-id='${$onePostObject.id}' class="btn btn-outline-danger px-4">📌 Block</a>

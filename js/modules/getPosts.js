@@ -4,7 +4,6 @@ function getPosts($onePostObject) { // HTML код для КАЖДОГО ото�
 	if ($onePostObject[2] === "0") {
 		$onePostObject[2] = false;
 	}
-	// console.log($onePostObject);
 	const el = `<div class="col-md-12 col-xl-12">
 					<div class="blog-entry d-md-flex">		
 						<div class="text text-2 pl-md-4">
@@ -28,7 +27,7 @@ function getPosts($onePostObject) { // HTML код для КАЖДОГО ото�
 									`<a href="#" class="text-warning"  style="font-size: 1.8em;"
 										data-id="${$onePostObject[0].id}" title="Редактировать">🖍</a>` : "" ) +
 								($onePostObject[0].user.id == $onePostObject[1] || $onePostObject[2] ?
-									`<a href="#" class="text-danger" style="font-size: 1.8em;"
+									`<a href="#" class="text-danger delete-post-button" style="font-size: 1.8em;"
 										data-id="${$onePostObject[0].id}" title="Удалить">🗑</a>` : "" ) +
 								`</div>
 

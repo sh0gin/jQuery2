@@ -1,9 +1,9 @@
 import { getPosts } from "./getPosts.js";
 import { getPostOne } from "./getPostOne.js";
 import { getCommentOne } from "./getCommentOne.js";
-import { hideAll } from "./asists.js";
+import { hideAll, get } from "./asists.js";
 import { getHtmlPagination } from "./pagination.js";
-import { get } from "./asists.js";
+import { deleteComment } from "./comment.js";
 
 export { blogsShow, getHtml, getPost, getFullPost, addPostButton, moreButton, addBlogsHide, deletePost, hideAll, getComments, getHtmlTen };
 
@@ -35,7 +35,6 @@ function getHtml($number) { // берём из getPosts.php массив с па
 }
 
 function getFullPost($number_pagin = 0) { // отображает все посты на странице.
-
 
     let $url = `index.html?page=1`;
     history.pushState({ page: 1 }, "", $url);
@@ -105,6 +104,7 @@ function getPost() { // отображает страницу ПРОСМОТРА
 				$(".post").removeClass("not-active");
 				$(".post-content").html(getPostOne($response));
 				getComments($response[0].id);
+				
 			},
 		});
 		// $(`ul[data-com=${$id_post}]`).html("");
@@ -130,7 +130,8 @@ function getComments($id_post) {
 
 
 function deletePost() { // удаляет пост
-	$("body").on("click", '.text-danger', function (elem) {
+	$("body").on("click", '.delete-post-button', function (elem) {
+		console.log("POST");
 		let $id_post = $(this).attr("data-id");
 		$.ajax({
 			url: "/delete_post.php",

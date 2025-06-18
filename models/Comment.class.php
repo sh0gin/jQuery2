@@ -70,6 +70,11 @@ class Comment
                 return true;
             }
         } else {
+            echo json_encode([
+                'status' => false,
+                'message' => $this->message,
+                'valid_message' => $this->valid_message,
+            ]);
             if ($this->user->mysql->query("INSERT into comment (autor_id, message, post_id, comment_id) VALUES ('{$this->user->id}', '$message', '{$this->post->id}', $comment)")) {
                 return true;
             }
@@ -118,7 +123,9 @@ class Comment
     public function delete_comment($id = null)
     {
         if ($id) {
-            $this->user->mysql->query("DELETE FROM COMMENT WHERE id = '{$id}'");
+            if ($this->user->mysql->query("DELETE FROM COMMENT WHERE id = '{$id}'")) {
+                echo json_encode(['status' => true]);
+            }
         }
     }
 }

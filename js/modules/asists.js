@@ -1,4 +1,4 @@
-export { hideAll, hideCorolLibAll, clearForm, clearPost, get }
+export { hideAll, hideCorolLibAll, clearForm, clearPost, get,  clearMessage }
 
 function hideAll() { // Скрыват все страницы
     $("section").each(function () {
@@ -18,6 +18,10 @@ function clearForm() {
 
 function clearPost() {
     $("input").val("");
+    $("textarea").val("");
+}
+
+function clearMessage() {
     $("textarea").val("");
 }
 

@@ -158,10 +158,9 @@
                             <form action="" class="bg-light p-5 contact-form answer-form" method="POST"
                                 enctype="multipart/form-data">
 
-
                                 <div class="form-group">
-                                    <textarea name="message" id="content-message" cols="30" rows="10" class="form-control"></textarea>
-                                    <div class="invalid-feedback content-message"></div>
+                                    <textarea name="message-answer" id="content-message" cols="30" rows="10" class="form-control answer-form-val"></textarea>
+                                    <div class="invalid-feedback content-message-answer"></div>
                                 </div>
 
                                 <div class="form-group">
@@ -173,6 +172,9 @@
                     </div>
                 </div>
             </section>
+
+		
+
             <!-- account -->
             <section class="ftco-no-pt ftco-no-pb not-active account">
                 <div class="account-info">
@@ -302,6 +304,36 @@
                     </div>
                 </div>
             </section>
+            
+            <section class="contact-section-block px-md-2 not-active pt-5">
+				<div class="container">
+					<div class="row d-flex contact-info">
+						<div class="col-md-12 mb-1">
+							<h2 class="h3">Временная блокировка пользователя</h2>
+							<div class="id-user-block">
+								Пользователь: 
+							</div>
+						</div>
+					</div>
+					<div class="row block-9">
+						<div class="col-lg-6 d-flex">
+							<form action="">
+								<div class="form-group">
+									<label for="date-block">Дата временной блокировки</label>
+									<input type="date" class="form-control" id="date-block" name="date_block" value=""
+										required>
+								</div>
+								<div class="form-group">
+                                    <button class="btn btn-primary py-3 px-5 button-block">
+                                        Блокировать
+                                    </button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+
 
             <!-- about -->
             <section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb not-active about">

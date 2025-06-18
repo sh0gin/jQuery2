@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $comment->load_comment($_POST);
     $comment->post->findOne($_POST['post_id']);
     $comment->user->identity($_POST['autor_id']);
-    
+
     // if ($comment->validate()) {
 
     // } else {
@@ -30,8 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // }
 
     if (!$comment->validate()) {
-        if ($comment->save()) {
+        if (array_key_exists('comment_id', $_POST)) {
+            if ($comment->save($_POST['comment_id'])) {
+            }
+        } else {
+            if ($comment->save()) {
+            }
         }
+
         // if ($request->get("comment_id")) {
         //     if ($comment->save($request->get("comment_id"))) {
         //     }
@@ -43,14 +49,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // }
 }
 
-if ($request->get("id")) {
-    $login = $mysql->select("SELECT login FROM USER WHERE id = '{$mysql->select("SELECT autor_id FROM POST WHERE id = '{$request->get('id')}'")[0]['autor_id']}'")[0]['login'];
-}
-if ($request->get("token")) {
-    $mylogin = $mysql->select("SELECT login from USER where token = '{$request->get("token")}'")[0]['login'];
-} else {
-    $mylogin = false;
-}
+// if ($request->get("id")) {
+//     $login = $mysql->select("SELECT login FROM USER WHERE id = '{$mysql->select("SELECT autor_id FROM POST WHERE id = '{$request->get('id')}'")[0]['autor_id']}'")[0]['login'];
+// }
+// if ($request->get("token")) {
+//     $mylogin = $mysql->select("SELECT login from USER where token = '{$request->get("token")}'")[0]['login'];
+// } else {
+//     $mylogin = false;
+// }
 
 // if ($request->get("id")) {
 //     $post->findOne($request->get("id"));

@@ -1,27 +1,47 @@
-import { loginShow, giveInputLogin, getUserStatus, logout } from "./modules/login.js";
-import { blogsShow, getHtml, getPost, getFullPost, addPostButton, moreButton, deletePost } from "./modules/blogs.js";
+import {
+  loginShow,
+  giveInputLogin,
+  getUserStatus,
+  logout,
+} from "./modules/login.js";
+import {
+  getPost,
+  getFullPost,
+  addPostButton,
+  moreButton,
+  deletePost,
+} from "./modules/blogs.js";
 import { registerShow, giveInputRegister } from "./modules/register.js";
 import { hideAll, hideCorolLibAll, clearPost } from "./modules/asists.js";
 import { indexShow, getFullPostTen } from "./modules/index.js";
 import { aboutShow } from "./modules/about.js";
-import { getHtmlPagination, giveNumPagination } from "./modules/pagination.js";
-import { usersShow } from "./modules/users.js";
+import { giveNumPagination } from "./modules/pagination.js";
+import {
+  usersShow,
+  permanent,
+  banTimeShow,
+  banTimeButton,
+} from "./modules/users.js";
 import { giveInputPost, edit } from "./modules/post.js";
-import { giveInputComment, answerShow, answerButton } from "./modules/comment.js";
+import {
+  giveInputComment,
+  answerShow,
+  answerButton,
+  deleteComment,
+} from "./modules/comment.js";
 
 $(() => {
   getPost();
   getFullPostTen(); // показываем Главную и посты на ней генерим
   getUserStatus(); // действивя с пользователей
-  
-  
+
   $("body").on("click", ".link", function (e) {
     clearPost();
     e.preventDefault();
-    
-    $("body").find("input").attr('value', '');
+
+    $("body").find("input").attr("value", "");
     hideCorolLibAll(); // убирает corolLib у всех пунктов
-    
+
     hideAll(); // убирает все страницы
 
     switch ($(this).attr("data-section")) {
@@ -52,6 +72,10 @@ $(() => {
     }
   });
 
+  banTimeButton();
+  deleteComment();
+  banTimeShow();
+  permanent();
   answerButton();
   moreButton(); // кнопка Подробнее...
   deletePost(); // удалить пост
@@ -63,8 +87,9 @@ $(() => {
   getUserStatus(); // проверяет статус пользователя
   giveInputRegister(); // берем данные с формы регистрации по нажатию кнопки Регистрация
   giveInputLogin(); // берем данные с форм входа по нажатию кнопки Вход
-
 });
+
+
 // 06.06.2025
 // $('.options-sort').each(() =>
 //   console.log(this)

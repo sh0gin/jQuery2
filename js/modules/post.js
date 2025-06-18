@@ -31,7 +31,6 @@ function giveInputPost($id = false) { // нужен чтобы взять id п�
             processData: false,
             data: $formData,
             success: function ($response) {
-                console.log($response);
                 if (!$response.status) {
                     addBlogsHide();
                     getFullPost();
@@ -76,7 +75,6 @@ function edit() {
             dataType: "json",
             data: { id: $id_post, token: $token },
             success: function ($response) {
-                console.log($response[0]);
                 $('input[id=title]').val($response[0].title);
                 $('input[id=preview]').val($response[0].preview);
                 $('textarea[id=content]').val($response[0].content);

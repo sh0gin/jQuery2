@@ -5,6 +5,8 @@ function getPostOne($onePostObject) { // HTML код для отображени
 	// console.log()
 	if ($onePostObject[2] === "0") {
 		$onePostObject[2] = false;
+	} else {
+		$onePostObject[2] = true;
 	}
 	const el = `<div class="post">
 								<h1 class="mb-3">${$onePostObject[0].title}</h1>
@@ -28,7 +30,7 @@ function getPostOne($onePostObject) { // HTML код для отображени
 									`<a href="#" class="text-warning"  style="font-size: 1.8em;"
 										data-id="${$onePostObject[0].id}" title="Редактировать">🖍</a>` : "" ) +
 								($onePostObject[0].user.id == $onePostObject[1] || $onePostObject[2] ?
-									`<a href="#" class="text-danger" style="font-size: 1.8em;"
+									`<a href="#" class="text-danger delete-post-button" style="font-size: 1.8em;"
 										data-id="${$onePostObject[0].id}" title="Удалить">🗑</a>` : "" ) +
 								`</div>
 
@@ -39,9 +41,9 @@ function getPostOne($onePostObject) { // HTML код для отображени
 									
 								</ul>
 								<!-- END comment-list -->
-								<div class="comment-form-wrap pt-5" data-id="${$onePostObject[0].id}">
-									<h3 class="mb-5">Оставьте комментарий</h3>
-									<form action="#" class="p-3 p-md-5 bg-light">
+								<div class="comment-form-wrap pt-5" data-id="${$onePostObject[0].id}">` + 
+									(!$onePostObject[2] ?
+									`<h3 class="mb-5">Оставьте комментарий</h3><form action="#" class="p-3 p-md-5 bg-light">
 										<div class="form-group">
 											<label for="message">Сообщение</label>
 											<textarea name="message" id="message" cols="30" rows="10"
@@ -52,8 +54,8 @@ function getPostOne($onePostObject) { // HTML код для отображени
 											<input type="submit" value="Отправить" name="send_comment"
 												class="btn py-3 px-4 btn-primary">
 										</div>
-									</form>
-								</div>
+									</form>` : "") +
+								`</div>
 							</div>`;
 	return el;
 

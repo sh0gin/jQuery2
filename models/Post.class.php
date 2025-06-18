@@ -68,7 +68,7 @@ class Post
         $result = false;
         if ($id) {
             $mas = $this->user->mysql->select("select * from post where id = '$id'");
-
+            // printd($mas);
             $this->load($mas[0]);
 
             $this->date = Asists::format_date(new Datetime($this->date));
