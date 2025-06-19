@@ -7,7 +7,6 @@ $post = new Post($user, $request, $response);
 $result = [];
 
 
-
 if ($_POST['token']) {
     $token = $_POST['token'];
     $mas = $mysql->select("SELECT id, role FROM user where token='$token'")[0];

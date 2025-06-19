@@ -87,12 +87,14 @@ function moreButton() { // по клику на кнопку "Подробнее
 }
 
 
-function getPost() { // отображает страницу ПРОСМОТРА поста 
+function getPost($id = null) { // отображает страницу ПРОСМОТРА поста 
 	hideAll();
 	let $token = localStorage.getItem("token");
-
-	var $id = get("id");
 	
+	if ($id === null) {
+		var $id = get("id");
+	}
+
 	if ($id) {
 		$(".post-content").html("");
 		$.ajax({

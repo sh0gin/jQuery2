@@ -72,14 +72,14 @@ $(() => {
     }
   });
 
-  banTimeButton();
-  deleteComment();
-  banTimeShow();
-  permanent();
-  answerButton();
+  banTimeButton(); // заблокировать на время
+  deleteComment(); // удалить комментарий
+  banTimeShow(); // временная блокировка
+  permanent(); // постоянная блокировка
+  answerButton(); // кнопка ответить на комментарии 
   moreButton(); // кнопка Подробнее...
   deletePost(); // удалить пост
-  edit();
+  edit(); // редактирование поста
   answerShow(); // кнопка ответить на комментарий
   giveNumPagination(); // срабатывает когда жмём на кнопки пагинации
   giveInputComment(); // селектор на нажатии кнопки создания комментария

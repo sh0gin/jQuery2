@@ -1,18 +1,6 @@
 <?php
-
-use function PHPSTORM_META\type;
-
 require_once __DIR__ . "/main.php";
-
-// if ($_SERVER["REQUEST_METHOD"] == "GET" && $request->get("id")) {
-//     $post->findOne($request->get("id"));
-// }
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // if (!$request->post("message")) {
-    // if (!$user->isAdmin && !$user->isGuest) {
-    // var_dump($_POST);
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['token'] !== "null") {
     if (isset($_FILES["image"]) && empty($_FILES['image']['error'])) {
         $fileTemp = $_FILES['image']['tmp_name'];
         $fileName = "images/" . $_FILES['image']['name'];
@@ -29,15 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 $id = $post->user->mysql->insert_id;
             }
-
             $post->save_image($id);
             $post->findOne($id);
-
-            // $response->redirect("post.php", ["id" => $id]);
+            $post->giveInfo();
         }
     }
-
-    // } else {
-    //     $response->redirect("index.php");
-    // }
 }

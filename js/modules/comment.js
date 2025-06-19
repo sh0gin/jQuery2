@@ -3,12 +3,14 @@ import { getPost } from "./blogs.js";
 import { get, clearMessage } from "./asists.js";
 
 function giveInputComment() {
+  // форма для создание комментария к посту
   $("body").on("click", "input[name=send_comment]", function (e) {
     e.preventDefault();
 
     let $message = $("#message").val();
     let $post_id = $(".comment-form-wrap").attr("data-id");
     let $token = localStorage.getItem("token");
+
     $.ajax({
       url: "/work_post.php",
       method: "POST",
@@ -37,7 +39,7 @@ function answerShow() {
     let $id_com = $(this).attr("data-com");
 
     let $id = get("id");
-    let $url = `https://blog/index.html?id=${$id}&comment=${$id_com}`;
+    let $url = `http://localhost/index.html?id=${$id}&comment=${$id_com}`;
     history.pushState({}, "", $url);
 
     elem.preventDefault();
@@ -91,7 +93,7 @@ function deleteComment() {
       dataType: "json",
       data: { id_comment: $id },
       success: function ($response) {
-        getPost($id_post); 
+        getPost($id_post);
       },
     });
   });

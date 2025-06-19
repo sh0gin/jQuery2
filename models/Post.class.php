@@ -35,7 +35,8 @@ class Post
     {
         $valid = Asists::validateDate($this);
 
-        echo json_encode([
+        if ($valid) {
+            echo json_encode([
             'status' => $valid,
             'title' => $this->title,
             'content' => $this->content,
@@ -44,13 +45,13 @@ class Post
             'valid_content' => $this->valid_content,
             'valid_preview' => $this->valid_preview,
         ]);
+        }
 
         return $valid;
     }
 
     public function load($array): void
     {
-
         if (array_key_exists("token", $array)) { // проверка на токен авторизации
             $token = $array['token'];
             $id = $this->user->mysql->select("SELECT id FROM user where token='$token'")[0]['id']; // достаём id из бд
@@ -59,7 +60,6 @@ class Post
                 $array["autor_id"] = $id;
             }
         }
-
         Asists::loadData($this, $array);
     }
 
@@ -68,7 +68,6 @@ class Post
         $result = false;
         if ($id) {
             $mas = $this->user->mysql->select("select * from post where id = '$id'");
-            // printd($mas);
             $this->load($mas[0]);
 
             $this->date = Asists::format_date(new Datetime($this->date));
@@ -76,7 +75,6 @@ class Post
             $result = true;
             $this->url_image = $this->user->mysql->select("SELECT image FROM image where post_id ='$id' ORDER BY id DESC limit 1");
             if ($this->url_image) {
-
                 $this->url_image = $this->url_image[0]["image"];
             }
         }
@@ -84,9 +82,18 @@ class Post
         return $result;
     }
 
-    // public function idFromBase() {
-
-    // }
+    public function giveInfo() {
+        echo json_encode([
+            'status' => false,
+            'title' => $this->title,
+            'content' => $this->content,
+            'preview' => $this->preview,
+            'valid_title' => $this->valid_title,
+            'valid_content' => $this->valid_content,
+            'valid_preview' => $this->valid_preview,
+            'id' => $this->id,
+        ]);
+    }
 
     public function save($id_post): bool
     {
@@ -129,12 +136,6 @@ class Post
                 $offset = ($offset - 1) * 5;
             }
         }
-        
-        // if ((bool) $ten_post) { // если не 10 постов
-        //     $limit = $this->user->mysql->select('SELECT count(id) FROM POST')[0]["count(id)"];
-        // }
-
-        // var_dump($limit, $offset, $ten_post);
 
         $result = [];
         $request = $this->user->mysql->select("SELECT * FROM POST ORDER BY date DESC Limit $limit OFFSET $offset");
@@ -163,19 +164,5 @@ class Post
             }
         }
         return false;
-
-
-
-
-        // if ($id) {
-        //     $this->findOne($id);
-        //     if ($this->user->isAdmin) {
-        //         $this->user->mysql->query("DELETE FROM POST WHERE id = '{$id}'");
-        //     } else {
-        //         if (!$this->comments) {
-        //             $this->user->mysql->query("DELETE FROM POST WHERE id = '{$id}'");
-        //         }
-        //     }
-        // }
     }
 }

@@ -3,7 +3,7 @@ export { loginShow, giveInputLogin, getUserStatus, logout };
 
 function loginShow() { // Отображает страницу входа
   $(".login").removeClass("not-active");
-  $(".login").addClass("colorlib-active");
+  $("a[data-section=login]").addClass("colorlib-active");
 }
 
 function loginHide() { // Скрывает страницу входа
@@ -63,10 +63,10 @@ function giveInputLogin() { // Срабатывает по нажатию кно
         // если данные формы прошли валидацию, мы скрывает страницу логина, отображаем блоги, а также добавляем token в localstorage. Вызываем функцию для проверки статуса кнопок
         if ($response.status) { 
           loginHide();
-          getFullPost();
           $("a[data-section=blogs]").addClass("colorlib-active");
           localStorage.setItem("token", $response["token"]);
           getUserStatus(); // после добавления токена, изменяем отображение всех кнопок.
+          getFullPost();
 
         } else {
           $("input").each(function () {

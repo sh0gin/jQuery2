@@ -1,13 +1,14 @@
 export { getPostOne };
 
 function getPostOne($onePostObject) { // HTML код для отображения страницы ПРОСМОТРА поста
-	// console.log($onePostObject[0].user.id, $onePostObject[1]);
-	// console.log()
-	if ($onePostObject[2] === "0") {
+
+	
+	if ($onePostObject[2] === "0" || $onePostObject[2] === 0) {
 		$onePostObject[2] = false;
 	} else {
 		$onePostObject[2] = true;
 	}
+
 	const el = `<div class="post">
 								<h1 class="mb-3">${$onePostObject[0].title}</h1>
 								<div class="meta-wrap">
@@ -29,7 +30,7 @@ function getPostOne($onePostObject) { // HTML код для отображени
 								($onePostObject[0].user.id == $onePostObject[1]  ?
 									`<a href="#" class="text-warning"  style="font-size: 1.8em;"
 										data-id="${$onePostObject[0].id}" title="Редактировать">🖍</a>` : "" ) +
-								($onePostObject[0].user.id == $onePostObject[1] || $onePostObject[2] ?
+								($onePostObject[0].user.id === $onePostObject[1] || $onePostObject[2] ?
 									`<a href="#" class="text-danger delete-post-button" style="font-size: 1.8em;"
 										data-id="${$onePostObject[0].id}" title="Удалить">🗑</a>` : "" ) +
 								`</div>
@@ -42,7 +43,7 @@ function getPostOne($onePostObject) { // HTML код для отображени
 								</ul>
 								<!-- END comment-list -->
 								<div class="comment-form-wrap pt-5" data-id="${$onePostObject[0].id}">` + 
-									(!$onePostObject[2] ?
+									(!$onePostObject[2] && $onePostObject[1] != '0' ?
 									`<h3 class="mb-5">Оставьте комментарий</h3><form action="#" class="p-3 p-md-5 bg-light">
 										<div class="form-group">
 											<label for="message">Сообщение</label>

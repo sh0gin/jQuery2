@@ -9,12 +9,15 @@ require_once "main.php";
 //     $response->redirect("index.php");
 // }
 
+
+
 $sql =  $mysql->select("SELECT id, role FROM user WHERE token='{$_POST['token']}'")[0];
 $_POST['autor_id'] = $sql['id'];
+
 unset($_POST['token']);
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $sql) {
 
     // if (!$user->isAdmin && !$user->isGuest) {
     $comment->load_comment($_POST);

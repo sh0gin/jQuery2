@@ -1,5 +1,5 @@
 import { getUser } from "./getUser.js";
-import { hideAll } from "./asists.js";
+import { hideAll, get } from "./asists.js";
 export { usersShow, permanent, banTimeShow, banTimeButton };
 
 function usersShow() {
@@ -24,7 +24,7 @@ function getUsers() {
       });
     },
   });
-  banTimeButton();
+  // banTimeButton();
 }
 
 function permanent() {
@@ -43,22 +43,38 @@ function permanent() {
 }
 
 function banTimeShow() {
-	$("body").on("click", ".btn-outline-warning", function() {
-		hideAll();
-		$(".contact-section-block").removeClass("not-active");
-    let $id_user = $(this).attr('data-user-id');
+  $("body").on("click", ".btn-outline-warning", function () {
+    hideAll();
+    $(".contact-section-block").removeClass("not-active");
+    let $id_user = $(this).attr("data-user-id");
     let $url = `https://blog/index.html?id_user=${$id_user}`;
-    history.pushState({id_user: $id_user}, "", $url);
+    history.pushState({ id_user: $id_user }, "", $url);
     $(".id-user-block").text(`Пользователь: ${$id_user}`);
-	})
+    $("input[id=date-block]").removeClass("is-invalid");
+  });
 }
 
 function banTimeButton() {
-  $("body").on("click", ".button-block", function(elem) {
+  $("body").on("click", ".button-block", function (elem) {
     elem.preventDefault();
-    
-    let $user_id = localStorage.getItem("id_user");
+
+    let $user_id = get("id_user");
     let $date = $("input[id=date-block]").val();
-    console.log($user_id, $date);
-  })
+
+    $.ajax({
+      url: "/blockForDate.php",
+      method: "POST",
+      dataType: "json",
+      data: { id_user: $user_id, date: $date },
+      success: function ($response) {
+        if ($response.status) {
+          hideAll();
+          usersShow();
+        } else {
+          $("input[id=date-block]").addClass("is-invalid");
+          $(".message-message").text($response.message);
+        }
+      },
+    });
+  });
 }

@@ -1,12 +1,10 @@
-import { getFullPost, addBlogsHide, hideAll } from "./blogs.js";
+import { getFullPost, addBlogsHide, hideAll, getPost } from "./blogs.js";
 import { clearPost } from "./asists.js";
 
 export { giveInputPost, edit }
 
 function giveInputPost($id = false) { // нужен чтобы взять id пользователя по токену и передать в функцию giveInputPostPlus, чтобы создать новый пост
     $(".post-action-form").submit(function (e) {
-        // let $id_post = localStorage.getItem('id');
-        // localStorage.removeItem('id');
         let $url_string = (window.location.href);
         var $url = new URL($url_string);
         var $id_post = $url.searchParams.get("id");
@@ -22,7 +20,7 @@ function giveInputPost($id = false) { // нужен чтобы взять id п�
         }
 
         $formData.append("id_post", $id_post);
-        console.log($formData);
+
         $.ajax({
             url: '/work_post-create.php',
             method: 'POST',
@@ -31,12 +29,13 @@ function giveInputPost($id = false) { // нужен чтобы взять id п�
             processData: false,
             data: $formData,
             success: function ($response) {
+                // console.log(Number($response.id));
                 if (!$response.status) {
                     addBlogsHide();
-                    getFullPost();
+                    console.log('GOOO');
+                    // getFullPost(); // чтобы выводилась страница постов
+                    getPost(Number($response.id));
                     clearPost(); // очищает форму
-                    // $(".post-action-form").find("input").attr("value", "");
-                    // $("#title").attr("value", "");
                 }
 
                 $("input").each(function () { // убираем is-invalid(красное окно + показ ошибок) в input в форме

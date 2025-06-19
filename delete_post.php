@@ -12,4 +12,3 @@ if ($post->delete_post($_POST["id_post"])) {
     ]);
 };
 
-// $response->redirect("index.php", [$request->get("token")]);

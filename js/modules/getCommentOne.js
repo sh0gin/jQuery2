@@ -9,13 +9,20 @@ function getCommentOne($oneCommentObject, $idActive, $role) {
 		} else {
 			$role = true;
 		}
+
+
+
+		// console.log($role);
+
+
+
 		const el = `<li ` + ($oneCommentObject.comment_id ? `id='special-li'` : ``) + `class="comment">
 											
 		<div class="comment-body">
 		
 												<div class="d-flex justify-content-between">
 													<h3>${$oneCommentObject.user.login}</h3>` + 
-													($oneCommentObject.user.id == $idActive || $role ?
+													($oneCommentObject.user.id == $idActive || !$role ?
 													`<a href="#" data-com='${$oneCommentObject.id}' class="text-danger delete-button-comment" style="font-size: 1.8em;"
 														title="Удалить">🗑</a>` : "") +
 												`</div>
@@ -25,7 +32,7 @@ function getCommentOne($oneCommentObject, $idActive, $role) {
 												<p>
 													${$oneCommentObject.message}
 												</p>` +
-												((!$oneCommentObject.comment_id && $role !== "1") ? `<p><a href="#"  data-com='${$oneCommentObject.id}' class="reply"> Ответить</a></p>` : ``) + `<!-- <p><a href="#" class="reply" > Ответить</a></p> -->
+												((!$oneCommentObject.comment_id && !$role) ? `<p><a href="#"  data-com='${$oneCommentObject.id}' class="reply"> Ответить</a></p>` : ``) + `<!-- <p><a href="#" class="reply" > Ответить</a></p> -->
 											</div>
 	
 										</li>`;
