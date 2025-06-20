@@ -1,4 +1,4 @@
-export { hideAll, hideCorolLibAll, clearForm, clearPost, get,  clearMessage }
+export { hideAll, hideCorolLibAll, clearForm, clearPost, get,  clearMessage, removeInvalidInput }
 
 function hideAll() { // Скрыват все страницы
     $("section").each(function () {
@@ -30,4 +30,11 @@ function get(arg) {
     var $url = new URL($url_string);
     var $id = $url.searchParams.get(arg);
     return $id;
+}
+
+function removeInvalidInput() {
+  $("input").each(function () {
+    // убираем is-invalid(красное окно + показ ошибок) в input в форме
+    $(this).removeClass("is-invalid");
+  });
 }

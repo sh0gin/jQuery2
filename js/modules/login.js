@@ -1,4 +1,5 @@
 import { getFullPost } from "./blogs.js";
+import { removeInvalidInput } from "./asists.js";
 export { loginShow, giveInputLogin, getUserStatus, logout };
 
 function loginShow() { // Отображает страницу входа
@@ -21,7 +22,7 @@ function getUserStatus() { // Проверяет статус пользоват
       success: function ($response) { // response массив атрибутов пользователя
 
         if (!$response.isAdmin && !$response.isGuest) { // кнопка отображения поста
-          $(".div-creat-post").removeClass("not-active"); 
+          $(".div-creat-post").removeClass("not-active");
         }
         if ($response.isAdmin) { // кнопка пункта "Пользовватели" 
           $(".users_menu").removeClass("not-active");
@@ -44,6 +45,8 @@ function getUserStatus() { // Проверяет статус пользоват
 }
 
 function giveInputLogin() { // Срабатывает по нажатию кнопки Вход(на форма, не в пункте меню)
+  let $url = `index.html`;
+  history.pushState({}, "", $url);
   $(".login-btn").on("click", function (e) { // кнопка Вход
     e.preventDefault();
     let $obj = {}; // or it create automatelly
@@ -61,7 +64,8 @@ function giveInputLogin() { // Срабатывает по нажатию кно
       data: $obj,
       success: function ($response) {
         // если данные формы прошли валидацию, мы скрывает страницу логина, отображаем блоги, а также добавляем token в localstorage. Вызываем функцию для проверки статуса кнопок
-        if ($response.status) { 
+        if ($response.status) {
+          removeInvalidInput();
           loginHide();
           $("a[data-section=blogs]").addClass("colorlib-active");
           localStorage.setItem("token", $response["token"]);
@@ -69,6 +73,7 @@ function giveInputLogin() { // Срабатывает по нажатию кно
           getFullPost();
 
         } else {
+
           $("input").each(function () {
             $(this).removeClass("is-invalid"); // убираем все выводы ошибок в форме
           });

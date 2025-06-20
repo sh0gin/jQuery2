@@ -12,7 +12,7 @@ import {
   deletePost,
 } from "./modules/blogs.js";
 import { registerShow, giveInputRegister } from "./modules/register.js";
-import { hideAll, hideCorolLibAll, clearPost } from "./modules/asists.js";
+import { hideAll, hideCorolLibAll, clearPost, removeInvalidInput } from "./modules/asists.js";
 import { indexShow, getFullPostTen } from "./modules/index.js";
 import { aboutShow } from "./modules/about.js";
 import { giveNumPagination } from "./modules/pagination.js";
@@ -37,6 +37,8 @@ $(() => {
 
   $("body").on("click", ".link", function (e) {
     clearPost();
+    removeInvalidInput();
+
     e.preventDefault();
 
     $("body").find("input").attr("value", "");

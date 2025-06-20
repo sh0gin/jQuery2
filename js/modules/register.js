@@ -1,5 +1,5 @@
 import { getFullPost } from "./blogs.js";
-import { clearForm } from "./asists.js";
+import { clearForm, removeInvalidInput } from "./asists.js";
 export { registerShow, giveInputRegister };
 
 function registerShow() {
@@ -14,14 +14,11 @@ function registerHide() {
   $("a[data-section=register]").removeClass("colorlib-active");
 }
 
-function removeInvalidInput() {
-  $("input").each(function () {
-    // убираем is-invalid(красное окно + показ ошибок) в input в форме
-    $(this).removeClass("is-invalid");
-  });
-}
+
 
 function giveInputRegister() {
+  let $url = `index.html`;
+  history.pushState({}, "", $url);
   $(".btn-register").on("click", function (e) {
     // по нажатию на кнопку регистрация в форме
     e.preventDefault();

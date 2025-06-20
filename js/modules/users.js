@@ -4,6 +4,8 @@ export { usersShow, permanent, banTimeShow, banTimeButton };
 
 function usersShow() {
   // отображает страницу Пользоавтели
+  let $url = `index.html`;
+  history.pushState({}, "", $url);
   $(".t-body").html("");
   $(".users").removeClass("not-active");
   $("a[data-section=users]").addClass("colorlib-active");
@@ -36,7 +38,7 @@ function permanent() {
       method: "POST",
       dataType: "json",
       data: { id_user: $id_user },
-      success: function () {},
+      success: function () { },
     });
     usersShow();
   });
@@ -47,7 +49,9 @@ function banTimeShow() {
     hideAll();
     $(".contact-section-block").removeClass("not-active");
     let $id_user = $(this).attr("data-user-id");
-    let $url = `https://blog/index.html?id_user=${$id_user}`;
+
+    let $url = `http://localhost/index.html?id_user=${$id_user}`;
+
     history.pushState({ id_user: $id_user }, "", $url);
     $(".id-user-block").text(`Пользователь: ${$id_user}`);
     $("input[id=date-block]").removeClass("is-invalid");
